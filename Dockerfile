@@ -7,6 +7,7 @@ RUN mkdir -p /opt/code
 
 WORKDIR /opt/code
 
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 RUN git clone https://github.com/gothinkster/django-realworld-example-app app \
@@ -17,4 +18,4 @@ COPY uwsgi.ini /etc/uwsgi.ini
 
 EXPOSE 8080
 
-ENTRYPOINT ["uwsgi", "/etc/uwsgi.ini"]
+ENTRYPOINT ["uwsgi", "--ini", "/etc/uwsgi.ini"]
