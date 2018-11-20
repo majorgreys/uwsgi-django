@@ -3,18 +3,16 @@ FROM python:2.7.15-stretch
 RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /opt/code
-
 WORKDIR /opt/code
 
 COPY requirements.txt .
+COPY uwsgi.ini .
+
 RUN pip install -r requirements.txt
 
-RUN git clone https://github.com/gothinkster/django-realworld-example-app app \
-    && cd app \
+RUN git clone https://github.com/gothinkster/django-realworld-example-app project \
+    && cd project \
     && pip install -r requirements.txt
-
-COPY uwsgi.ini /etc/uwsgi.ini
 
 EXPOSE 8080
 
