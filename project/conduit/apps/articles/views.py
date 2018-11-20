@@ -10,6 +10,10 @@ from .models import Article, Comment, Tag
 from .renderers import ArticleJSONRenderer, CommentJSONRenderer
 from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
 
+# patch httplib
+from ddtrace.contrib.httplib import patch
+import httplib
+patch()
 
 class ArticleViewSet(mixins.CreateModelMixin, 
                      mixins.ListModelMixin,
@@ -65,6 +69,11 @@ class ArticleViewSet(mixins.CreateModelMixin,
             context=serializer_context,
             many=True
         )
+
+        # test out httplib
+        conn = httplib.HTTPConnection('127.0.0.1:8888')
+        conn.request('GET', '/status/200')
+        resp = conn.getresponse()
 
         return self.get_paginated_response(serializer.data)
 
