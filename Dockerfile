@@ -12,7 +12,8 @@ RUN pip install -r requirements.txt
 
 RUN git clone https://github.com/gothinkster/django-realworld-example-app project \
     && cd project \
-    && pip install -r requirements.txt
+    && pip install -r requirements.txt \
+    && python manage.py migrate
 
 EXPOSE 8080
 
