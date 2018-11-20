@@ -36,13 +36,14 @@ RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-instal
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-RUN git clone https://github.com/gothinkster/django-realworld-example-app project \
-    && cd project \
+ADD project project
+
+RUN cd project \
     && pip install -r requirements.txt \
     && python manage.py migrate
 
 COPY uwsgi.ini .
-EXPOSE 3000
+EXPOSE 8080
 
 ENV DATADOG_TRACE_DEBUG true
 ENV DATADOG_PATCH_MODULES httplib:false
