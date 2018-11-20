@@ -3,6 +3,6 @@
 To start the sample Django project from `uwsgi`:
 
 ``` shell
-docker run -it --rm (docker build -q .)
+docker run --net="host" -it --rm (docker build -q .)
 ```
 

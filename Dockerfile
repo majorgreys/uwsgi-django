@@ -17,4 +17,6 @@ RUN git clone https://github.com/gothinkster/django-realworld-example-app projec
 
 EXPOSE 8080
 
-ENTRYPOINT ["uwsgi", "--ini", "/opt/code/uwsgi.ini"]
+ENV DATADOG_TRACE_DEBUG true
+
+ENTRYPOINT ["ddtrace-run", "uwsgi", "--ini", "/opt/code/uwsgi.ini"]
