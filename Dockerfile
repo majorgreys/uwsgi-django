@@ -4,9 +4,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /opt/code
-RUN pip install uwsgi
 
 WORKDIR /opt/code
+
+RUN pip install -r requirements.txt
 
 RUN git clone https://github.com/gothinkster/django-realworld-example-app app \
     && cd app \
