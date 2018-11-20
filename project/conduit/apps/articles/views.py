@@ -15,6 +15,12 @@ from ddtrace.contrib.httplib import patch
 import httplib
 patch()
 
+# patch jinja2
+import jinja2
+from ddtrace.contrib.jinja2 import patch
+patch()
+
+
 class ArticleViewSet(mixins.CreateModelMixin, 
                      mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
@@ -71,9 +77,13 @@ class ArticleViewSet(mixins.CreateModelMixin,
         )
 
         # test out httplib
-        conn = httplib.HTTPConnection('127.0.0.1:8888')
+        conn = httplib.HTTPConnection('httpbin')
         conn.request('GET', '/status/200')
         resp = conn.getresponse()
+
+        # test out jinja2
+        t = jinja2.environment.Template("Hello {{name}}!")
+        t.render(name="Jinja")
 
         return self.get_paginated_response(serializer.data)
 
