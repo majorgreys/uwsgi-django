@@ -1,2 +1,2 @@
-uwsgi==2.0.17
+uwsgi==1.9.20
 git+git://github.com/DataDog/dd-trace-py@0.16-dev#egg=ddtrace
