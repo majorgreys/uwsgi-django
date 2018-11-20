@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build: .
+    depends_on:
+      - agent
+    environment:
+      - 'DATADOG_TRACE_ENABLED=true'
+      - 'DATADOG_TRACE_AGENT_HOSTNAME=agent'
+    ports:
+      - '8080:8080'
+
+  agent:
+    image: 'datadog/docker-dd-agent'
+    environment:
+      - 'DD_APM_ENABLED=true'
+      - 'DD_TAGS=env:dev'
+      - 'DD_BIND_HOST=0.0.0.0'
+      - 'DD_API_KEY=invalid_key_but_this_is_fine'
+    ports:
+      - 8125
+      - 8126
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/proc/:/host/proc/:ro'
+      - '/sys/fs/cgroup/:/host/sys/fs/cgroup:ro'
