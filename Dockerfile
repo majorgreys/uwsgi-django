@@ -46,6 +46,5 @@ COPY uwsgi.ini .
 EXPOSE 8080
 
 ENV DATADOG_TRACE_DEBUG true
-ENV DATADOG_PATCH_MODULES httplib:false
 
 ENTRYPOINT ["ddtrace-run", "uwsgi", "--ini", "/opt/code/uwsgi.ini"]

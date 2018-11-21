@@ -10,6 +10,9 @@ from .models import Article, Comment, Tag
 from .renderers import ArticleJSONRenderer, CommentJSONRenderer
 from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
 
+# for sleeping
+import time
+
 # patch httplib
 from ddtrace.contrib.httplib import patch
 import httplib
@@ -84,6 +87,8 @@ class ArticleViewSet(mixins.CreateModelMixin,
         # test out jinja2
         t = jinja2.environment.Template("Hello {{name}}!")
         t.render(name="Jinja")
+
+        time.sleep(1)
 
         return self.get_paginated_response(serializer.data)
 
